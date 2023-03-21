@@ -22,12 +22,7 @@ class Task
       # recreate all tasks
       # return an ARRAY OF TASK INSTANCES
       results.map do |result|
-        Task.new(
-          id: result['id'],
-          title: result['title'],
-          description: result['description'],
-          done: result['done'] == 1
-        )
+        build_task(result)
       end
     end
   end
@@ -41,12 +36,7 @@ class Task
       nil
     else
       # binding.pry
-      Task.new(
-        id: result['id'],
-        title: result['title'],
-        description: result['description'],
-        done: result['done'] == 1
-      )
+      build_task(result)
       # 3. return the task
     end
   end
@@ -70,5 +60,14 @@ class Task
         @title, @description, @done ? 1 : 0, @id
       )
     end
+  end
+
+  def self.build_task(row)
+    Task.new(
+      id: row['id'],
+      title: row['title'],
+      description: row['description'],
+      done: row['done'] == 1
+    )
   end
 end
